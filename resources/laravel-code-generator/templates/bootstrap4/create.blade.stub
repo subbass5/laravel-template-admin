@@ -1,0 +1,51 @@
+@extends('[% layout_name %]')
+
+@section('content')
+
+    <div class="card">
+
+        <div class="card-header bg-primary text-white">
+            
+            <h5  class="my-1 float-left">[% create_model %]<div class="btn-group btn-group-sm float-right" role="group">
+                <a href="{{ route('[% index_route_name %]') }}" class="btn btn-primary" title="[% show_all_models %]">
+                    <i class=" fas fa-fw fa-th-list" aria-hidden="true"></i>
+                </a>
+            </div></h5>
+
+            
+
+        </div>
+
+        <div class="card-body">
+        
+            @if ($errors->any())
+                <ul class="alert alert-danger">
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            @endif
+
+            <form method="POST" action="{{ route('[% store_route_name %]') }}" accept-charset="UTF-8" id="[% form_id %]" name="[% form_name %]" class="form-horizontal"[% upload_files %]>
+            {{ csrf_field() }}
+            @include ('[% form_view_name %]', [
+                                        '[% model_name_singular_variable %]' => null,
+                                      ])
+
+                <div class="form-group">                     
+						<div align="center">
+						  <button class="btn btn-primary" type="submit">
+						  <i class="fas fa-fw fa-save"></i> บันทึก</button>
+						  <button class="btn btn-light" type="reset" onclick="history.back();"> 
+						  <i class="fas fa-fw fa-redo" aria-hidden="true"></i> ยกเลิก</button>
+						</div>
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+@endsection
+
+
